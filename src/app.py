@@ -1,15 +1,17 @@
 from flask import Flask
 
+from src.database import init_db, DATABASE_PATH
+from src.routes.tarefas import tarefas_bp
+
 
 def create_app():
     app = Flask(__name__)
 
-    @app.route("/")
-    def index():
-        return """
-            <h1>Bem-vindo ao Tarefaê!</h1>
-            <p>Seu gerenciador de tarefas está sendo desenvolvido.</p>
-        """
+    app.config["DATABASE_PATH"] = DATABASE_PATH
+
+    init_db(app.config["DATABASE_PATH"])
+
+    app.register_blueprint(tarefas_bp)
 
     return app
 
