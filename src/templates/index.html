@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tarefaê | Minhas tarefas</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Tarefaê</h1>
+        <p>Organize suas tarefas de um jeito simples.</p>
+    </header>
+
+    <main>
+
+        <section>
+            <h2>Nova tarefa</h2>
+
+            {% if erro %}
+                <p role="alert">{{ erro }}</p>
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('tarefas.index') }}">
+
+                <label for="titulo">Título</label>
+                <input
+                    type="text"
+                    id="titulo"
+                    name="titulo"
+                    maxlength="150"
+                    placeholder="O que você precisa fazer?"
+                    required
+                >
+
+                <label for="descricao">Descrição</label>
+                <textarea
+                    id="descricao"
+                    name="descricao"
+                    placeholder="Adicione detalhes (opcional)"
+                ></textarea>
+
+                <button type="submit">Adicionar tarefa</button>
+
+            </form>
+        </section>
+
+        <section>
+            <h2>Minhas tarefas</h2>
+
+            {% if tarefas %}
+
+                {% for tarefa in tarefas %}
+
+                    <article>
+                        <h3>{{ tarefa["titulo"] }}</h3>
+
+                        {% if tarefa["descricao"] %}
+                            <p>{{ tarefa["descricao"] }}</p>
+                        {% endif %}
+
+                        <p>
+                            Prioridade: {{ tarefa["prioridade"] }}
+                        </p>
+
+                        <p>
+                            Status: {{ tarefa["status"] }}
+                        </p>
+
+                    </article>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>Você ainda não cadastrou nenhuma tarefa.</p>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</body>
+</html>
