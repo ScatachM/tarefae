@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Tarefaê | Minhas tarefas</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
 </head>
 
 <body>
@@ -43,6 +48,26 @@
                     placeholder="Adicione detalhes (opcional)"
                 ></textarea>
 
+                <label for="prioridade">Prioridade</label>
+                <select id="prioridade" name="prioridade" required>
+                    <option value="baixa">Baixa</option>
+                    <option value="media" selected>Média</option>
+                    <option value="alta">Alta</option>
+                </select>
+
+                <label for="data_vencimento">Data de vencimento</label>
+                <input
+                    type="date"
+                    id="data_vencimento"
+                    name="data_vencimento"
+                >
+
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="pendente" selected>Pendente</option>
+                    <option value="concluida">Concluída</option>
+                </select>
+
                 <button type="submit">Adicionar tarefa</button>
 
             </form>
@@ -51,11 +76,71 @@
         <section>
             <h2>Minhas tarefas</h2>
 
+            <h3>Filtrar tarefas</h3>
+
+            <form method="GET" action="{{ url_for('tarefas.index') }}">
+
+                <label for="filtro_status">Status</label>
+                <select id="filtro_status" name="status">
+                    <option value="">Todos</option>
+
+                    <option
+                        value="pendente"
+                        {% if status_filtro == 'pendente' %}selected{% endif %}
+                    >
+                        Pendentes
+                    </option>
+
+                    <option
+                        value="concluida"
+                        {% if status_filtro == 'concluida' %}selected{% endif %}
+                    >
+                        Concluídas
+                    </option>
+                </select>
+
+                <label for="filtro_prioridade">Prioridade</label>
+                <select id="filtro_prioridade" name="prioridade">
+                    <option value="">Todas</option>
+
+                    <option
+                        value="baixa"
+                        {% if prioridade_filtro == 'baixa' %}selected{% endif %}
+                    >
+                        Baixa
+                    </option>
+
+                    <option
+                        value="media"
+                        {% if prioridade_filtro == 'media' %}selected{% endif %}
+                    >
+                        Média
+                    </option>
+
+                    <option
+                        value="alta"
+                        {% if prioridade_filtro == 'alta' %}selected{% endif %}
+                    >
+                        Alta
+                    </option>
+                </select>
+
+                <button type="submit">Filtrar</button>
+
+                <a href="{{ url_for('tarefas.index') }}">
+                    Limpar filtros
+                </a>
+
+            </form>
+
             {% if tarefas %}
 
                 {% for tarefa in tarefas %}
 
-                    <article>
+                    <article
+                        class="{% if tarefa['status'] == 'pendente' and tarefa['data_vencimento'] and tarefa['data_vencimento'] < hoje %}atrasada{% else %}no-prazo{% endif %}"
+                    >
+
                         <h3>{{ tarefa["titulo"] }}</h3>
 
                         {% if tarefa["descricao"] %}
@@ -69,6 +154,21 @@
                         <p>
                             Status: {{ tarefa["status"] }}
                         </p>
+
+                        {% if tarefa["data_vencimento"] %}
+                            <p>
+                                Vencimento: {{ tarefa["data_vencimento"] }}
+                            </p>
+                        {% endif %}
+
+                        {% if tarefa["status"] == "pendente"
+                            and tarefa["data_vencimento"]
+                            and tarefa["data_vencimento"] < hoje
+                        %}
+                            <p class="aviso-atraso">
+                                Tarefa atrasada!
+                            </p>
+                        {% endif %}
 
                         <a href="{{ url_for('tarefas.editar', id=tarefa['id']) }}">
                             Editar
@@ -88,7 +188,7 @@
 
             {% else %}
 
-                <p>Você ainda não cadastrou nenhuma tarefa.</p>
+                <p>Nenhuma tarefa encontrada com os filtros selecionados.</p>
 
             {% endif %}
 

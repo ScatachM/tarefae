@@ -1,41 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}"
+>
+
     <title>Editar tarefa | Tarefaê</title>
 </head>
+
 <body>
 
-    <h1>Editar tarefa</h1>
+    <header>
+        <h1>Tarefaê</h1>
+        <p>Editar tarefa</p>
+    </header>
 
-    {% if erro %}
-        <p>{{ erro }}</p>
-    {% endif %}
+    <main>
 
-    <form method="POST">
+        <section>
 
-        <label for="titulo">Título:</label>
-        <input
-            type="text"
-            id="titulo"
-            name="titulo"
-            value="{{ tarefa['titulo'] }}"
-            maxlength="150"
-            required
-        >
+            {% if erro %}
+                <p role="alert">{{ erro }}</p>
+            {% endif %}
 
-        <label for="descricao">Descrição:</label>
-        <textarea
-            id="descricao"
-            name="descricao"
-        >{{ tarefa['descricao'] or '' }}</textarea>
+            <form method="POST">
 
-        <button type="submit">Salvar alterações</button>
+                <label for="titulo">Título</label>
+                <input
+                    type="text"
+                    id="titulo"
+                    name="titulo"
+                    value="{{ tarefa['titulo'] }}"
+                    maxlength="150"
+                    required
+                >
 
-    </form>
+                <label for="descricao">Descrição</label>
+                <textarea
+                    id="descricao"
+                    name="descricao"
+                >{{ tarefa['descricao'] or '' }}</textarea>
 
-    <a href="{{ url_for('tarefas.index') }}">Cancelar</a>
+                <label for="prioridade">Prioridade</label>
+                <select id="prioridade" name="prioridade" required>
+                    <option value="baixa"
+                        {% if tarefa['prioridade'] == 'baixa' %}selected{% endif %}>
+                        Baixa
+                    </option>
+
+                    <option value="media"
+                        {% if tarefa['prioridade'] == 'media' %}selected{% endif %}>
+                        Média
+                    </option>
+
+                    <option value="alta"
+                        {% if tarefa['prioridade'] == 'alta' %}selected{% endif %}>
+                        Alta
+                    </option>
+                </select>
+
+                <label for="data_vencimento">Data de vencimento</label>
+                <input
+                    type="date"
+                    id="data_vencimento"
+                    name="data_vencimento"
+                    value="{{ tarefa['data_vencimento'] or '' }}"
+                >
+
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="pendente"
+                        {% if tarefa['status'] == 'pendente' %}selected{% endif %}>
+                        Pendente
+                    </option>
+
+                    <option value="concluida"
+                        {% if tarefa['status'] == 'concluida' %}selected{% endif %}>
+                        Concluída
+                    </option>
+                </select>
+
+                <button type="submit">Salvar alterações</button>
+
+            </form>
+
+            <a href="{{ url_for('tarefas.index') }}">Cancelar</a>
+
+        </section>
+
+    </main>
 
 </body>
 </html>
