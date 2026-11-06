@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.env/
+.pytest_cache/
+
+# Flask
+instance/
+
+# SQLite
+*.db
+*.sqlite3
+
+# IDEs
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
