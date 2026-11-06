@@ -1,0 +1,257 @@
+/* ========================================
+   TAREFAÊ - ESTILIZAÇÃO
+   ======================================== */
+
+/* Configurações gerais */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f6fa;
+    color: #263238;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 35px 20px;
+    background-color: #dceee8;
+    border-radius: 16px;
+    margin: 0 auto 30px;
+    max-width: 1000px;
+}
+
+header h1 {
+    color: #246b57;
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #526b63;
+}
+
+/* Conteúdo principal */
+
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+section {
+    background-color: #ffffff;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: #246b57;
+    margin-bottom: 18px;
+}
+
+h3 {
+    margin-bottom: 12px;
+}
+
+/* Formulários */
+
+form {
+    margin-top: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 14px 0 6px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd5d1;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #ffffff;
+    color: #263238;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid #6ba991;
+    border-color: #246b57;
+}
+
+/* Botões e links */
+
+button {
+    background-color: #246b57;
+    color: #ffffff;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 14px;
+}
+
+button:hover {
+    background-color: #194f40;
+}
+
+a {
+    color: #246b57;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Cartões de tarefas */
+
+article {
+    background-color: #ffffff;
+    border: 1px solid #e1e8e4;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+article h3 {
+    color: #246b57;
+    overflow-wrap: anywhere;
+}
+
+article p {
+    margin-bottom: 7px;
+    overflow-wrap: anywhere;
+}
+
+article form {
+    margin-top: 5px;
+}
+
+/* Tarefas atrasadas */
+
+.atrasada {
+    border: 2px solid #dc6262;
+    background-color: #fff1f1;
+}
+
+.aviso-atraso {
+    color: #b91c1c;
+    font-weight: bold;
+}
+
+/* Tarefas dentro do prazo */
+
+.no-prazo {
+    border: 1px solid #dce5df;
+}
+
+/* Filtros */
+
+section form a {
+    display: inline-block;
+    margin: 14px 0 0 12px;
+}
+
+/* Mensagens de erro */
+
+[role="alert"] {
+    color: #b91c1c;
+    background-color: #fff1f1;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+/* Tablets */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 14px;
+    }
+
+    header {
+        padding: 28px 15px;
+    }
+
+    header h1 {
+        font-size: 1.9rem;
+    }
+
+    section {
+        padding: 20px;
+    }
+}
+
+/* Celulares */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 10px;
+    }
+
+    header {
+        padding: 22px 12px;
+        margin-bottom: 18px;
+    }
+
+    header h1 {
+        font-size: 1.7rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    section {
+        padding: 16px;
+        border-radius: 10px;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    article {
+        padding: 14px;
+    }
+
+    button {
+        width: 100%;
+        padding: 13px;
+    }
+
+    section form a {
+        display: block;
+        text-align: center;
+        margin: 12px 0;
+    }
+}
