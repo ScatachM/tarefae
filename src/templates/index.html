@@ -43,6 +43,26 @@
                     placeholder="Adicione detalhes (opcional)"
                 ></textarea>
 
+                <label for="prioridade">Prioridade</label>
+                <select id="prioridade" name="prioridade" required>
+                    <option value="baixa">Baixa</option>
+                    <option value="media" selected>Média</option>
+                    <option value="alta">Alta</option>
+                </select>
+
+                <label for="data_vencimento">Data de vencimento</label>
+                <input
+                    type="date"
+                    id="data_vencimento"
+                    name="data_vencimento"
+                >
+
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="pendente" selected>Pendente</option>
+                    <option value="concluida">Concluída</option>
+                </select>
+
                 <button type="submit">Adicionar tarefa</button>
 
             </form>
@@ -69,6 +89,12 @@
                         <p>
                             Status: {{ tarefa["status"] }}
                         </p>
+
+                        {% if tarefa["data_vencimento"] %}
+                            <p>
+                                Vencimento: {{ tarefa["data_vencimento"] }}
+                            </p>
+                        {% endif %}
 
                         <a href="{{ url_for('tarefas.editar', id=tarefa['id']) }}">
                             Editar
