@@ -6,6 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Tarefaê | Minhas tarefas</title>
+
+    <style>
+        .atrasada {
+            border: 2px solid #dc2626;
+            background-color: #fef2f2;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .no-prazo {
+            border: 1px solid #ccc;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .aviso-atraso {
+            color: #b91c1c;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -71,11 +91,71 @@
         <section>
             <h2>Minhas tarefas</h2>
 
+            <h3>Filtrar tarefas</h3>
+
+            <form method="GET" action="{{ url_for('tarefas.index') }}">
+
+                <label for="filtro_status">Status</label>
+                <select id="filtro_status" name="status">
+                    <option value="">Todos</option>
+
+                    <option
+                        value="pendente"
+                        {% if status_filtro == 'pendente' %}selected{% endif %}
+                    >
+                        Pendentes
+                    </option>
+
+                    <option
+                        value="concluida"
+                        {% if status_filtro == 'concluida' %}selected{% endif %}
+                    >
+                        Concluídas
+                    </option>
+                </select>
+
+                <label for="filtro_prioridade">Prioridade</label>
+                <select id="filtro_prioridade" name="prioridade">
+                    <option value="">Todas</option>
+
+                    <option
+                        value="baixa"
+                        {% if prioridade_filtro == 'baixa' %}selected{% endif %}
+                    >
+                        Baixa
+                    </option>
+
+                    <option
+                        value="media"
+                        {% if prioridade_filtro == 'media' %}selected{% endif %}
+                    >
+                        Média
+                    </option>
+
+                    <option
+                        value="alta"
+                        {% if prioridade_filtro == 'alta' %}selected{% endif %}
+                    >
+                        Alta
+                    </option>
+                </select>
+
+                <button type="submit">Filtrar</button>
+
+                <a href="{{ url_for('tarefas.index') }}">
+                    Limpar filtros
+                </a>
+
+            </form>
+
             {% if tarefas %}
 
                 {% for tarefa in tarefas %}
 
-                    <article>
+                    <article
+                        class="{% if tarefa['status'] == 'pendente' and tarefa['data_vencimento'] and tarefa['data_vencimento'] < hoje %}atrasada{% else %}no-prazo{% endif %}"
+                    >
+
                         <h3>{{ tarefa["titulo"] }}</h3>
 
                         {% if tarefa["descricao"] %}
@@ -93,6 +173,15 @@
                         {% if tarefa["data_vencimento"] %}
                             <p>
                                 Vencimento: {{ tarefa["data_vencimento"] }}
+                            </p>
+                        {% endif %}
+
+                        {% if tarefa["status"] == "pendente"
+                            and tarefa["data_vencimento"]
+                            and tarefa["data_vencimento"] < hoje
+                        %}
+                            <p class="aviso-atraso">
+                                Tarefa atrasada!
                             </p>
                         {% endif %}
 
@@ -114,7 +203,7 @@
 
             {% else %}
 
-                <p>Você ainda não cadastrou nenhuma tarefa.</p>
+                <p>Nenhuma tarefa encontrada com os filtros selecionados.</p>
 
             {% endif %}
 

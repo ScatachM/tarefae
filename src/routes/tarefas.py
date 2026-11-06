@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 
 from flask import (
     Blueprint,
@@ -88,25 +88,58 @@ def index():
 
             return redirect(url_for("tarefas.index"))
 
+    # Recupera os filtros enviados pela URL
+    status_filtro = request.args.get("status", "").strip()
+    prioridade_filtro = request.args.get("prioridade", "").strip()
+
+    # Ignora filtros com valores inválidos
+    if status_filtro not in STATUS_VALIDOS:
+        status_filtro = ""
+
+    if prioridade_filtro not in PRIORIDADES_VALIDAS:
+        prioridade_filtro = ""
+
+    # Monta a consulta conforme os filtros selecionados
+    condicoes = []
+    parametros = []
+
+    if status_filtro:
+        condicoes.append("status = ?")
+        parametros.append(status_filtro)
+
+    if prioridade_filtro:
+        condicoes.append("prioridade = ?")
+        parametros.append(prioridade_filtro)
+
+    consulta = "SELECT * FROM tarefas"
+
+    if condicoes:
+        consulta += " WHERE " + " AND ".join(condicoes)
+
+    consulta += " ORDER BY id DESC"
+
     conn = get_db_connection(
         current_app.config["DATABASE_PATH"]
     )
 
     try:
         tarefas = conn.execute(
-            """
-            SELECT * FROM tarefas
-            ORDER BY id DESC
-            """
+            consulta,
+            parametros
         ).fetchall()
 
     finally:
         conn.close()
 
+    hoje = date.today().isoformat()
+
     return render_template(
         "index.html",
         tarefas=tarefas,
-        erro=erro
+        erro=erro,
+        status_filtro=status_filtro,
+        prioridade_filtro=prioridade_filtro,
+        hoje=hoje
     )
 
 
@@ -209,4 +242,3 @@ def excluir(id):
         conn.close()
 
     return redirect(url_for("tarefas.index"))
-
