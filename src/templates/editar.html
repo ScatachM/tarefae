@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar tarefa | Tarefaê</title>
+</head>
+<body>
+
+    <h1>Editar tarefa</h1>
+
+    {% if erro %}
+        <p>{{ erro }}</p>
+    {% endif %}
+
+    <form method="POST">
+
+        <label for="titulo">Título:</label>
+        <input
+            type="text"
+            id="titulo"
+            name="titulo"
+            value="{{ tarefa['titulo'] }}"
+            maxlength="150"
+            required
+        >
+
+        <label for="descricao">Descrição:</label>
+        <textarea
+            id="descricao"
+            name="descricao"
+        >{{ tarefa['descricao'] or '' }}</textarea>
+
+        <button type="submit">Salvar alterações</button>
+
+    </form>
+
+    <a href="{{ url_for('tarefas.index') }}">Cancelar</a>
+
+</body>
+</html>

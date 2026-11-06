@@ -66,3 +66,79 @@ def index():
         tarefas=tarefas,
         erro=erro
     )
+
+
+@tarefas_bp.route("/editar/<int:id>", methods=["GET", "POST"])
+def editar(id):
+
+    erro = None
+
+    conn = get_db_connection(
+        current_app.config["DATABASE_PATH"]
+    )
+
+    try:
+        tarefa = conn.execute(
+            """
+            SELECT * FROM tarefas
+            WHERE id = ?
+            """,
+            (id,)
+        ).fetchone()
+
+        if tarefa is None:
+            return redirect(url_for("tarefas.index"))
+
+        if request.method == "POST":
+            titulo = request.form.get("titulo", "").strip()
+            descricao = request.form.get("descricao", "").strip()
+
+            if not titulo:
+                erro = "O título da tarefa é obrigatório."
+
+            else:
+                conn.execute(
+                    """
+                    UPDATE tarefas
+                    SET titulo = ?, descricao = ?
+                    WHERE id = ?
+                    """,
+                    (titulo, descricao or None, id)
+                )
+
+                conn.commit()
+
+                return redirect(url_for("tarefas.index"))
+
+    finally:
+        conn.close()
+
+    return render_template(
+        "editar.html",
+        tarefa=tarefa,
+        erro=erro
+    )
+
+
+@tarefas_bp.route("/excluir/<int:id>", methods=["POST"])
+def excluir(id):
+
+    conn = get_db_connection(
+        current_app.config["DATABASE_PATH"]
+    )
+
+    try:
+        conn.execute(
+            """
+            DELETE FROM tarefas
+            WHERE id = ?
+            """,
+            (id,)
+        )
+
+        conn.commit()
+
+    finally:
+        conn.close()
+
+    return redirect(url_for("tarefas.index"))
