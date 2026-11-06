@@ -506,3 +506,14 @@ Projeto acadêmico desenvolvido individualmente como atividade prática de Engen
 
 \*\*Tarefaê — Organize suas tarefas. Simplifique sua rotina.\*\*
 
+## Testes automatizados
+
+O projeto utiliza o framework pytest para verificar o funcionamento das principais funcionalidades da aplicação.
+
+### Executar os testes
+
+Com o ambiente virtual ativado e as dependências instaladas, execute:
+
+```bash
+python -m pytest -v
+
