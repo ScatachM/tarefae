@@ -1,16 +1,16 @@
-\# Requisitos do Sistema — Tarefaê
+# Requisitos do Sistema — Tarefaê
 
 
 
-\*\*Versão:\*\* 1.0.0  
+**Versão:** 1.0.0  
 
-\*\*Data:\*\* 06/11/2026  
+**Data:** 06/11/2026  
 
-\*\*Status:\*\* Em especificação
+**Status:** Em especificação
 
 
 
-\## 1. Introdução
+## 1. Introdução
 
 
 
@@ -22,7 +22,7 @@ O objetivo é estabelecer as funcionalidades e características necessárias par
 
 
 
-\## 2. Requisitos Funcionais (RF)
+## 2. Requisitos Funcionais (RF)
 
 
 
@@ -54,7 +54,7 @@ O objetivo é estabelecer as funcionalidades e características necessárias par
 
 
 
-\## 3. Requisitos Não Funcionais (RNF)
+## 3. Requisitos Não Funcionais (RNF)
 
 
 
@@ -82,7 +82,7 @@ O objetivo é estabelecer as funcionalidades e características necessárias par
 
 
 
-\## 4. Regras de Negócio (RN)
+## 4. Regras de Negócio (RN)
 
 
 
@@ -110,61 +110,80 @@ O objetivo é estabelecer as funcionalidades e características necessárias par
 
 
 
-\## 5. Rastreabilidade dos Requisitos
+## 5. Rastreabilidade dos Requisitos
 
+Esta seção relaciona os requisitos funcionais, não funcionais e as regras de negócio aos casos de uso, histórias de usuário, Issues do GitHub e testes automatizados.
 
+### 5.1 Requisitos Funcionais
 
-Os requisitos serão relacionados aos casos de uso, às histórias de usuário e às Issues do GitHub.
+| Requisito | Caso de uso | História de usuário | Issue | Teste automatizado |
+|---|---|---|---|---|
+| RF01 | UC01 | US01 | Não identificada | `test_cadastrar_tarefa`; `test_nao_cadastrar_tarefa_sem_titulo` |
+| RF02 | UC02 | US02 | Não identificada | `test_pagina_inicial_carrega` (cobertura parcial da listagem) |
+| RF03 | UC02 | US02 | Não identificada | Não identificado |
+| RF04 | UC03 | US03 | Não identificada | `test_editar_tarefa` |
+| RF05 | UC04 | US04 | Não identificada | `test_excluir_tarefa` |
+| RF06 | UC01 / UC03 | US01 / US03 | #12 | `test_cadastrar_tarefa`; `test_editar_tarefa` |
+| RF07 | UC01 / UC03 | US01 / US03 | #12 | `test_identificar_tarefa_atrasada`; `test_tarefa_com_data_futura_nao_esta_atrasada` |
+| RF08 | UC05 | US05 | #12 | `test_editar_tarefa`; `test_tarefa_concluida_nao_esta_atrasada` |
+| RF09 | UC06 | US06 | #13 | `test_filtrar_tarefas_por_status` |
+| RF10 | UC06 | US06 | #13 | `test_filtrar_tarefas_por_prioridade` |
+| RF11 | UC02 | US02 | #13 | `test_identificar_tarefa_atrasada`; `test_tarefa_com_data_futura_nao_esta_atrasada`; `test_tarefa_concluida_nao_esta_atrasada` |
 
+### 5.2 Requisitos Não Funcionais
 
-
-| Requisito | Caso de uso | História de usuário |
-
+| Requisito | Issue relacionada | Evidência ou teste |
 |---|---|---|
+| RNF01 | #14 | Critérios de usabilidade descritos na Issue; validação automatizada não identificada |
+| RNF02 | Não identificada | Não foi identificado teste de desempenho |
+| RNF03 | Não identificada | SQLite indicado como tecnologia de persistência; não foi identificado teste específico após reinicialização |
+| RNF04 | #14 | Requisito relacionado à Issue; não foi identificada validação específica de compatibilidade entre navegadores |
+| RNF05 | #14 | Critério de responsividade; validação automatizada não identificada |
+| RNF06 | #01 | Organização da estrutura do projeto e separação de responsabilidades |
+| RNF07 | Não identificada | Evidência parcial: `test_nao_cadastrar_tarefa_sem_titulo` verifica a obrigatoriedade do título |
+| RNF08 | #15 | Suíte automatizada com Pytest: 10 testes aprovados e cobertura de 90,32% |
+| RNF09 | Não identificada | Requisito definido na especificação; implementação e testes específicos de segurança ainda não verificados |
 
-| RF01 | UC01 | US01 |
+### 5.3 Regras de Negócio
 
-| RF02 | UC02 | US02 |
+| Regra | Issue relacionada | Teste automatizado |
+|---|---|---|
+| RN01 | Não identificada | `test_cadastrar_tarefa`; `test_nao_cadastrar_tarefa_sem_titulo` |
+| RN02 | Não identificada | Não identificado de forma específica |
+| RN03 | #12 | `test_cadastrar_tarefa`; `test_editar_tarefa` |
+| RN04 | #12 | Não identificado |
+| RN05 | #12 | Não identificado |
+| RN06 | #12 | Testes de cadastro com data de vencimento vazia |
+| RN07 | #12 | `test_tarefa_concluida_nao_esta_atrasada` |
+| RN08 | #13 | `test_identificar_tarefa_atrasada`; `test_tarefa_com_data_futura_nao_esta_atrasada` |
+| RN09 | Não identificada | `test_excluir_tarefa` |
 
-| RF03 | UC02 | US02 |
+**Observações sobre a rastreabilidade:**
 
-| RF04 | UC03 | US03 |
+- A indicação "Não identificada" significa que não foi encontrada uma associação específica nas Issues e nos testes analisados.
+- A existência de uma Issue não significa que todos os seus critérios de aceite foram validados.
+- Os testes listados representam as verificações existentes na suíte automatizada, não uma garantia de cobertura integral do requisito.
+- A cobertura global de 90,32% refere-se às linhas de código medidas pelo pytest-cov, não ao percentual de requisitos testados.
 
-| RF05 | UC04 | US04 |
-
-| RF06 | UC01 / UC03 | US01 / US03 |
-
-| RF07 | UC01 / UC03 | US01 / US03 |
-
-| RF08 | UC05 | US05 |
-
-| RF09 | UC06 | US06 |
-
-| RF10 | UC06 | US06 |
-
-| RF11 | UC02 | US02 |
-
-
-
-\## 6. Tecnologias relacionadas
-
-
-
-\- Python 3: desenvolvimento da lógica da aplicação.
-
-\- Flask: gerenciamento das rotas e requisições web.
-
-\- SQLite: persistência dos dados.
-
-\- HTML5 e CSS3: estrutura e apresentação da interface.
-
-\- JavaScript: interatividade.
-
-\- Pytest: testes automatizados.
+## 6. Tecnologias relacionadas
 
 
 
-\## 7. Considerações finais
+- Python 3: desenvolvimento da lógica da aplicação.
+
+- Flask: gerenciamento das rotas e requisições web.
+
+- SQLite: persistência dos dados.
+
+- HTML5 e CSS3: estrutura e apresentação da interface.
+
+- JavaScript: interatividade.
+
+- Pytest: testes automatizados.
+
+
+
+## 7. Considerações finais
 
 
 

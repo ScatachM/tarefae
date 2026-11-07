@@ -1,16 +1,16 @@
-\# Modelo de Dados — Tarefaê
+# Modelo de Dados — Tarefaê
 
 
 
-\*\*Versão:\*\* 1.0.0  
+**Versão:** 1.0.0
 
-\*\*Data:\*\* 06/11/2026  
+**Data:** 06/11/2026
 
-\*\*Status:\*\* Em especificação
+**Status:** Em especificação
 
 
 
-\## 1. Introdução
+## 1. Introdução
 
 
 
@@ -26,7 +26,7 @@ O banco de dados escolhido é o SQLite, por sua simplicidade, portabilidade e ad
 
 
 
-\## 2. Modelo conceitual
+## 2. Modelo conceitual
 
 
 
@@ -38,7 +38,7 @@ A entidade representa as atividades cadastradas pelo usuário e armazena informa
 
 
 
-\### 2.1. Entidade Tarefa
+### 2.1. Entidade Tarefa
 
 
 
@@ -46,27 +46,27 @@ Cada registro representa uma tarefa independente.
 
 
 
-\*\*Atributos:\*\*
+**Atributos:**
 
 
 
-\- id: identificador único da tarefa.
+- id: identificador único da tarefa.
 
-\- titulo: nome ou descrição resumida da atividade.
+- titulo: nome ou descrição resumida da atividade.
 
-\- descricao: informações complementares sobre a tarefa.
+- descricao: informações complementares sobre a tarefa.
 
-\- prioridade: nível de importância da atividade.
+- prioridade: nível de importância da atividade.
 
-\- status: situação atual da tarefa.
+- status: situação atual da tarefa.
 
-\- data\_criacao: data e horário em que a tarefa foi cadastrada.
+- data_criacao: data e horário em que a tarefa foi cadastrada.
 
-\- data\_vencimento: prazo definido para conclusão da tarefa.
+- data_vencimento: prazo definido para conclusão da tarefa.
 
 
 
-\## 3. Dicionário de dados
+## 3. Dicionário de dados
 
 
 
@@ -84,13 +84,13 @@ Cada registro representa uma tarefa independente.
 
 | status | TEXT | Sim | Situação da tarefa. |
 
-| data\_criacao | TEXT | Sim | Data e horário de cadastro. |
+| data_criacao | TEXT | Sim | Data e horário de cadastro. |
 
-| data\_vencimento | TEXT | Não | Data limite para conclusão. |
+| data_vencimento | TEXT | Não | Data limite para conclusão. |
 
 
 
-\## 4. Restrições e regras de integridade
+## 4. Restrições e regras de integridade
 
 
 
@@ -98,29 +98,29 @@ A entidade Tarefa deverá respeitar as seguintes restrições:
 
 
 
-\- O campo id será a chave primária e terá incremento automático.
+- O campo id será a chave primária e terá incremento automático.
 
-\- O título deverá ser obrigatório e não poderá conter apenas espaços.
+- O título deverá ser obrigatório e não poderá conter apenas espaços.
 
-\- A descrição será opcional.
+- A descrição será opcional.
 
-\- A prioridade deverá aceitar somente os valores baixa, media ou alta.
+- A prioridade deverá aceitar somente os valores baixa, media ou alta.
 
-\- A prioridade padrão será media.
+- A prioridade padrão será media.
 
-\- O status deverá aceitar somente os valores pendente ou concluida.
+- O status deverá aceitar somente os valores pendente ou concluida.
 
-\- O status inicial será pendente.
+- O status inicial será pendente.
 
-\- A data de criação será preenchida automaticamente.
+- A data de criação será preenchida automaticamente.
 
-\- A data de vencimento será opcional.
+- A data de vencimento será opcional.
 
-\- As datas serão armazenadas em formato ISO 8601.
+- As datas serão armazenadas em formato ISO 8601.
 
 
 
-\## 5. Modelo físico
+## 5. Modelo físico
 
 
 
@@ -128,7 +128,7 @@ A tabela principal será denominada `tarefa`.
 
 
 
-\### 5.1. Script de criação
+### 5.1. Script de criação
 
 
 
@@ -152,9 +152,9 @@ CREATE TABLE IF NOT EXISTS tarefa (
 
 &#x20;       CHECK (status IN ('pendente', 'concluida')),
 
-&#x20;   data\_criacao TEXT NOT NULL DEFAULT CURRENT\_TIMESTAMP,
+&#x20;   data_criacao TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-&#x20;   data\_vencimento TEXT
+&#x20;   data_vencimento TEXT
 
 );
 
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS tarefa (
 
 
 
-\## 6. Relacionamento entre entidades
+## 6. Relacionamento entre entidades
 
 
 
@@ -178,7 +178,7 @@ Caso sejam implementadas funcionalidades como autenticação ou compartilhamento
 
 
 
-\## 7. Requisitos relacionados
+## 7. Requisitos relacionados
 
 
 
@@ -218,7 +218,7 @@ A modelagem atende aos seguintes requisitos:
 
 
 
-\## 8. Considerações finais
+## 8. Considerações finais
 
 
 

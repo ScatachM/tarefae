@@ -9,8 +9,9 @@ Aplicação web para gerenciamento de tarefas pessoais, acadêmicas e profission
 ![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)
 ![Flask](https://img.shields.io/badge/Flask-3.x-black?logo=flask)
 ![SQLite](https://img.shields.io/badge/Database-SQLite-blue?logo=sqlite)
-![Tests](https://img.shields.io/badge/tests-10%20passing-brightgreen)
-![License](https://img.shields.io/badge/license-not%20defined-lightgrey)
+![Tests](https://img.shields.io/badge/tests-13%20passing-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-90.08%25-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
@@ -48,6 +49,7 @@ O projeto foi desenvolvido individualmente como atividade prática de Engenharia
 - [x] Interface responsiva.
 - [x] Persistência de dados com SQLite.
 - [x] Testes automatizados com pytest.
+- [x] Proteção CSRF nos formulários de cadastro, edição e exclusão.
 
 ### Planejadas para evoluções futuras
 
@@ -62,24 +64,38 @@ O projeto foi desenvolvido individualmente como atividade prática de Engenharia
 |---|---|
 | Python 3 | Linguagem de programação |
 | Flask | Framework para desenvolvimento web |
+| Flask-WTF | Proteção contra ataques CSRF |
+| python-dotenv | Gerenciamento de variáveis de ambiente |
 | SQLite | Banco de dados relacional |
 | HTML5 | Estrutura das páginas |
 | CSS3 | Estilização e responsividade |
 | Pytest | Testes automatizados |
+| pytest-cov | Medição da cobertura dos testes |
 | Git | Controle de versão |
 | GitHub | Hospedagem e gerenciamento do projeto |
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
+Copyright (c) 2026 Susana Teixeira Mota.
 
 ## Estrutura do projeto
 
 ```text
 tarefae/
 │
+├── .github/
+│   └── workflows/
+│       └── tests.yml
+│
 ├── docs/
 │   ├── project-charter.md
 │   ├── requisitos.md
 │   ├── casos-de-uso.md
 │   ├── user-stories.md
-│   └── modelo-dados.md
+│   ├── modelo-dados.md
+│   └── arquitetura.md
 │
 ├── src/
 │   ├── __init__.py
@@ -99,12 +115,13 @@ tarefae/
 │   ├── conftest.py
 │   └── test_tarefas.py
 │
+├── .env.example
 ├── .gitignore
 ├── requirements.txt
 └── README.md
 ```
 
-O banco de dados SQLite é criado localmente na pasta `instance/` durante a execução da aplicação. Arquivos temporários, ambientes virtuais e bancos de dados locais são ignorados pelo Git.
+O banco de dados SQLite é criado localmente na pasta `instance/` durante a execução da aplicação. Arquivos temporários, ambientes virtuais, bancos de dados locais e arquivos com variáveis de ambiente são ignorados pelo Git.
 
 ## Documentação
 
@@ -117,6 +134,7 @@ Os documentos de engenharia estão disponíveis na pasta `docs/`.
 | [Casos de Uso](docs/casos-de-uso.md) | Especificação das interações entre usuário e sistema. |
 | [Histórias de Usuário](docs/user-stories.md) | Histórias de usuário e critérios de aceite. |
 | [Modelo de Dados](docs/modelo-dados.md) | Estrutura de dados e modelagem do banco. |
+| [Arquitetura](docs/arquitetura.md) | Organização dos componentes e arquitetura da aplicação. |
 
 ## Configuração do ambiente
 
@@ -161,10 +179,28 @@ source venv/bin/activate
 ### 5. Instalar as dependências
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-### 6. Executar a aplicação
+### 6. Configurar as variáveis de ambiente
+
+Copie o arquivo de exemplo:
+
+```bash
+cp .env.example .env
+```
+
+Gere uma chave secreta:
+
+```bash
+python -c "import secrets; print(secrets.token_hex(32))"
+```
+
+Copie o valor gerado e substitua o valor de `SECRET_KEY` no arquivo `.env`.
+
+O arquivo `.env` contém informações sensíveis e não deve ser compartilhado ou enviado ao repositório.
+
+### 7. Executar a aplicação
 
 ```bash
 python -m flask --app src.app run --debug
@@ -188,6 +224,12 @@ Com o ambiente virtual ativado e as dependências instaladas, execute:
 python -m pytest -v
 ```
 
+### Executar os testes com cobertura
+
+```bash
+python -m pytest -v --cov=src --cov-report=term-missing --cov-fail-under=80
+```
+
 ### Cenários testados
 
 - Carregamento da página inicial.
@@ -196,5 +238,42 @@ python -m pytest -v
 - Edição de tarefas.
 - Exclusão de tarefas.
 - Filtragem por status.
-- Filtragem por prioridade
+- Filtragem por prioridade.
+- Identificação de tarefas atrasadas.
+- Validação de datas futuras.
+- Verificação de tarefas concluídas.
+- Bloqueio de cadastro sem token CSRF.
+- Bloqueio de edição sem token CSRF.
+- Bloqueio de exclusão sem token CSRF.
 
+### Resultados da validação
+
+- **13 testes automatizados aprovados.**
+- **90,08% de cobertura de código.**
+- **Cobertura mínima exigida: 80%.**
+
+## Integração contínua
+
+O projeto utiliza GitHub Actions para executar automaticamente os testes e verificar a cobertura de código em operações de push e Pull Requests direcionados às branches `main` e `develop`.
+
+A integração contínua ajuda a identificar problemas antes da integração das alterações ao código principal.
+
+## Segurança
+
+A aplicação utiliza proteção CSRF por meio da extensão Flask-WTF nos formulários responsáveis por cadastrar, editar e excluir tarefas.
+
+A chave secreta da aplicação é configurada por meio de variável de ambiente, evitando a exposição de informações sensíveis no repositório.
+
+## Controle de versão
+
+O desenvolvimento utiliza um fluxo baseado em branches:
+
+- `main`: versão estável do projeto.
+- `develop`: integração das funcionalidades.
+- Branches temáticas: desenvolvimento de funcionalidades, correções e documentação.
+
+As alterações são integradas por meio de Pull Requests, com revisão e execução dos testes automatizados.
+
+---
+
+**Tarefaê — Organize suas tarefas. Simplifique sua rotina.**

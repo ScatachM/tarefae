@@ -3,7 +3,9 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 venv/
-.env/
+# Variáveis de ambiente e segredos
+.env
+!.env.example
 .pytest_cache/
 
 # Flask
@@ -20,3 +22,6 @@ instance/
 # Sistema operacional
 .DS_Store
 Thumbs.db
+
+# Cobertura de testes
+.coverage

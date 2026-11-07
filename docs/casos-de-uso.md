@@ -1,16 +1,16 @@
-\# Casos de Uso — Tarefaê
+# Casos de Uso — Tarefaê
 
 
 
-\*\*Versão:\*\* 1.0.0  
+**Versão:** 1.0.0
 
-\*\*Data:\*\* 06/11/2026  
+**Data:** 06/11/2026
 
-\*\*Status:\*\* Em especificação
+**Status:** Em especificação
 
 
 
-\## 1. Introdução
+## 1. Introdução
 
 
 
@@ -22,11 +22,11 @@ Os casos de uso foram elaborados com base nos requisitos funcionais definidos em
 
 
 
-\## 2. Atores
+## 2. Atores
 
 
 
-\### 2.1. Usuário
+### 2.1. Usuário
 
 
 
@@ -34,7 +34,7 @@ Pessoa que utiliza a aplicação para organizar suas atividades cotidianas. Pode
 
 
 
-\### 2.2. Sistema
+### 2.2. Sistema
 
 
 
@@ -42,7 +42,7 @@ Componente responsável por processar as solicitações do usuário, validar inf
 
 
 
-\## 3. Lista de casos de uso
+## 3. Lista de casos de uso
 
 
 
@@ -64,381 +64,381 @@ Componente responsável por processar as solicitações do usuário, validar inf
 
 
 
-\---
+---
 
 
 
-\## 4. Especificação dos casos de uso
+## 4. Especificação dos casos de uso
 
 
 
-\### UC01 — Cadastrar tarefa
+### UC01 — Cadastrar tarefa
 
 
 
-\*\*Objetivo:\*\* Permitir que o usuário registre uma nova tarefa no sistema.
+**Objetivo:** Permitir que o usuário registre uma nova tarefa no sistema.
 
 
 
-\*\*Ator principal:\*\* Usuário.
+**Ator principal:** Usuário.
 
 
 
-\*\*Pré-condições:\*\*
+**Pré-condições:**
 
-\- A aplicação deve estar disponível.
+- A aplicação deve estar disponível.
 
-\- O formulário de cadastro deve estar acessível.
+- O formulário de cadastro deve estar acessível.
 
 
 
-\*\*Fluxo principal:\*\*
+**Fluxo principal:**
 
-1\. O usuário acessa a opção de cadastrar tarefa.
+1. O usuário acessa a opção de cadastrar tarefa.
 
-2\. O sistema apresenta o formulário de cadastro.
+2. O sistema apresenta o formulário de cadastro.
 
-3\. O usuário informa o título da tarefa.
+3. O usuário informa o título da tarefa.
 
-4\. O usuário informa opcionalmente a descrição.
+4. O usuário informa opcionalmente a descrição.
 
-5\. O usuário seleciona a prioridade.
+5. O usuário seleciona a prioridade.
 
-6\. O usuário informa opcionalmente a data de vencimento.
+6. O usuário informa opcionalmente a data de vencimento.
 
-7\. O usuário confirma o cadastro.
+7. O usuário confirma o cadastro.
 
-8\. O sistema valida as informações.
+8. O sistema valida as informações.
 
-9\. O sistema atribui o status pendente e, caso não tenha sido selecionada, a prioridade média.
+9. O sistema atribui o status pendente e, caso não tenha sido selecionada, a prioridade média.
 
-10\. O sistema salva a tarefa no banco de dados.
+10. O sistema salva a tarefa no banco de dados.
 
-11\. O sistema apresenta uma mensagem de confirmação.
+11. O sistema apresenta uma mensagem de confirmação.
 
 
 
-\*\*Fluxos alternativos:\*\*
+**Fluxos alternativos:**
 
-\- A1: O usuário não informa a descrição. O sistema permite continuar o cadastro.
+- A1: O usuário não informa a descrição. O sistema permite continuar o cadastro.
 
-\- A2: O usuário não informa a data de vencimento. O sistema permite continuar o cadastro.
+- A2: O usuário não informa a data de vencimento. O sistema permite continuar o cadastro.
 
-\- A3: O usuário não seleciona uma prioridade. O sistema atribui a prioridade média.
+- A3: O usuário não seleciona uma prioridade. O sistema atribui a prioridade média.
 
 
 
-\*\*Fluxos de exceção:\*\*
+**Fluxos de exceção:**
 
-\- E1: O usuário tenta cadastrar uma tarefa sem título. O sistema apresenta uma mensagem informando que o campo é obrigatório.
+- E1: O usuário tenta cadastrar uma tarefa sem título. O sistema apresenta uma mensagem informando que o campo é obrigatório.
 
-\- E2: O usuário informa dados inválidos. O sistema apresenta mensagens de validação e não realiza o cadastro.
+- E2: O usuário informa dados inválidos. O sistema apresenta mensagens de validação e não realiza o cadastro.
 
-\- E3: Ocorre uma falha no armazenamento. O sistema informa que não foi possível salvar a tarefa.
+- E3: Ocorre uma falha no armazenamento. O sistema informa que não foi possível salvar a tarefa.
 
 
 
-\*\*Pós-condições:\*\*
+**Pós-condições:**
 
-\- A tarefa é armazenada no banco de dados com status pendente.
+- A tarefa é armazenada no banco de dados com status pendente.
 
 
 
-\### UC02 — Consultar tarefas e detalhes
+### UC02 — Consultar tarefas e detalhes
 
 
 
-\*\*Objetivo:\*\* Permitir que o usuário visualize as tarefas cadastradas e consulte suas informações.
+**Objetivo:** Permitir que o usuário visualize as tarefas cadastradas e consulte suas informações.
 
 
 
-\*\*Ator principal:\*\* Usuário.
+**Ator principal:** Usuário.
 
 
 
-\*\*Pré-condições:\*\*
+**Pré-condições:**
 
-\- A aplicação deve estar disponível.
+- A aplicação deve estar disponível.
 
 
 
-\*\*Fluxo principal:\*\*
+**Fluxo principal:**
 
-1\. O usuário acessa a página principal.
+1. O usuário acessa a página principal.
 
-2\. O sistema consulta as tarefas armazenadas.
+2. O sistema consulta as tarefas armazenadas.
 
-3\. O sistema apresenta a lista de tarefas.
+3. O sistema apresenta a lista de tarefas.
 
-4\. O usuário seleciona uma tarefa.
+4. O usuário seleciona uma tarefa.
 
-5\. O sistema apresenta os detalhes da tarefa, incluindo título, descrição, prioridade, status, data de criação e data de vencimento.
+5. O sistema apresenta os detalhes da tarefa, incluindo título, descrição, prioridade, status, data de criação e data de vencimento.
 
-6\. O sistema identifica visualmente se a tarefa está atrasada.
+6. O sistema identifica visualmente se a tarefa está atrasada.
 
 
 
-\*\*Fluxos alternativos:\*\*
+**Fluxos alternativos:**
 
-\- A1: Não existem tarefas cadastradas. O sistema apresenta uma mensagem informando que a lista está vazia.
+- A1: Não existem tarefas cadastradas. O sistema apresenta uma mensagem informando que a lista está vazia.
 
-\- A2: O usuário consulta a lista sem selecionar uma tarefa específica. O sistema mantém a visualização geral.
+- A2: O usuário consulta a lista sem selecionar uma tarefa específica. O sistema mantém a visualização geral.
 
 
 
-\*\*Fluxos de exceção:\*\*
+**Fluxos de exceção:**
 
-\- E1: Ocorre uma falha na consulta ao banco de dados. O sistema informa que não foi possível carregar as tarefas.
+- E1: Ocorre uma falha na consulta ao banco de dados. O sistema informa que não foi possível carregar as tarefas.
 
-\- E2: O usuário solicita os detalhes de uma tarefa inexistente. O sistema informa que o registro não foi encontrado.
+- E2: O usuário solicita os detalhes de uma tarefa inexistente. O sistema informa que o registro não foi encontrado.
 
 
 
-\*\*Pós-condições:\*\*
+**Pós-condições:**
 
-\- As informações das tarefas são apresentadas sem alteração dos registros.
+- As informações das tarefas são apresentadas sem alteração dos registros.
 
 
 
-\### UC03 — Editar tarefa
+### UC03 — Editar tarefa
 
 
 
-\*\*Objetivo:\*\* Permitir que o usuário atualize as informações de uma tarefa existente.
+**Objetivo:** Permitir que o usuário atualize as informações de uma tarefa existente.
 
 
 
-\*\*Ator principal:\*\* Usuário.
+**Ator principal:** Usuário.
 
 
 
-\*\*Pré-condições:\*\*
+**Pré-condições:**
 
-\- A tarefa deve estar cadastrada no sistema.
+- A tarefa deve estar cadastrada no sistema.
 
-\- A aplicação deve estar disponível.
+- A aplicação deve estar disponível.
 
 
 
-\*\*Fluxo principal:\*\*
+**Fluxo principal:**
 
-1\. O usuário acessa a lista de tarefas.
+1. O usuário acessa a lista de tarefas.
 
-2\. O usuário seleciona a tarefa que deseja editar.
+2. O usuário seleciona a tarefa que deseja editar.
 
-3\. O sistema apresenta o formulário preenchido com os dados atuais.
+3. O sistema apresenta o formulário preenchido com os dados atuais.
 
-4\. O usuário altera as informações desejadas.
+4. O usuário altera as informações desejadas.
 
-5\. O usuário confirma a edição.
+5. O usuário confirma a edição.
 
-6\. O sistema valida os dados informados.
+6. O sistema valida os dados informados.
 
-7\. O sistema atualiza o registro no banco de dados.
+7. O sistema atualiza o registro no banco de dados.
 
-8\. O sistema apresenta uma mensagem de confirmação.
+8. O sistema apresenta uma mensagem de confirmação.
 
 
 
-\*\*Fluxos alternativos:\*\*
+**Fluxos alternativos:**
 
-\- A1: O usuário mantém algum campo opcional sem preenchimento. O sistema permite salvar as alterações.
+- A1: O usuário mantém algum campo opcional sem preenchimento. O sistema permite salvar as alterações.
 
-\- A2: O usuário cancela a edição. O sistema retorna à visualização anterior sem salvar as alterações.
+- A2: O usuário cancela a edição. O sistema retorna à visualização anterior sem salvar as alterações.
 
 
 
-\*\*Fluxos de exceção:\*\*
+**Fluxos de exceção:**
 
-\- E1: O usuário remove o título obrigatório. O sistema impede a atualização e apresenta uma mensagem de validação.
+- E1: O usuário remove o título obrigatório. O sistema impede a atualização e apresenta uma mensagem de validação.
 
-\- E2: Ocorre uma falha no banco de dados. O sistema informa que não foi possível atualizar a tarefa.
+- E2: Ocorre uma falha no banco de dados. O sistema informa que não foi possível atualizar a tarefa.
 
-\- E3: A tarefa não é encontrada. O sistema informa que o registro não existe.
+- E3: A tarefa não é encontrada. O sistema informa que o registro não existe.
 
 
 
-\*\*Pós-condições:\*\*
+**Pós-condições:**
 
-\- As alterações confirmadas são armazenadas no banco de dados.
+- As alterações confirmadas são armazenadas no banco de dados.
 
 
 
-\### UC04 — Excluir tarefa
+### UC04 — Excluir tarefa
 
 
 
-\*\*Objetivo:\*\* Permitir que o usuário remova uma tarefa cadastrada.
+**Objetivo:** Permitir que o usuário remova uma tarefa cadastrada.
 
 
 
-\*\*Ator principal:\*\* Usuário.
+**Ator principal:** Usuário.
 
 
 
-\*\*Pré-condições:\*\*
+**Pré-condições:**
 
-\- A tarefa deve existir no sistema.
+- A tarefa deve existir no sistema.
 
 
 
-\*\*Fluxo principal:\*\*
+**Fluxo principal:**
 
-1\. O usuário acessa a lista de tarefas.
+1. O usuário acessa a lista de tarefas.
 
-2\. O usuário seleciona a tarefa que deseja excluir.
+2. O usuário seleciona a tarefa que deseja excluir.
 
-3\. O sistema solicita a confirmação da exclusão.
+3. O sistema solicita a confirmação da exclusão.
 
-4\. O usuário confirma a operação.
+4. O usuário confirma a operação.
 
-5\. O sistema remove o registro do banco de dados.
+5. O sistema remove o registro do banco de dados.
 
-6\. O sistema atualiza a listagem.
+6. O sistema atualiza a listagem.
 
-7\. O sistema apresenta uma mensagem de confirmação.
+7. O sistema apresenta uma mensagem de confirmação.
 
 
 
-\*\*Fluxos alternativos:\*\*
+**Fluxos alternativos:**
 
-\- A1: O usuário cancela a exclusão. O sistema mantém o registro sem alterações.
+- A1: O usuário cancela a exclusão. O sistema mantém o registro sem alterações.
 
 
 
-\*\*Fluxos de exceção:\*\*
+**Fluxos de exceção:**
 
-\- E1: A tarefa não é encontrada. O sistema informa que não foi possível localizar o registro.
+- E1: A tarefa não é encontrada. O sistema informa que não foi possível localizar o registro.
 
-\- E2: Ocorre uma falha na exclusão. O sistema informa que não foi possível concluir a operação.
+- E2: Ocorre uma falha na exclusão. O sistema informa que não foi possível concluir a operação.
 
 
 
-\*\*Pós-condições:\*\*
+**Pós-condições:**
 
-\- A tarefa excluída deixa de aparecer na listagem e não permanece disponível para consulta.
+- A tarefa excluída deixa de aparecer na listagem e não permanece disponível para consulta.
 
 
 
-\### UC05 — Alterar status
+### UC05 — Alterar status
 
 
 
-\*\*Objetivo:\*\* Permitir que o usuário altere o status de uma tarefa entre pendente e concluída.
+**Objetivo:** Permitir que o usuário altere o status de uma tarefa entre pendente e concluída.
 
 
 
-\*\*Ator principal:\*\* Usuário.
+**Ator principal:** Usuário.
 
 
 
-\*\*Pré-condições:\*\*
+**Pré-condições:**
 
-\- A tarefa deve estar cadastrada no sistema.
+- A tarefa deve estar cadastrada no sistema.
 
 
 
-\*\*Fluxo principal:\*\*
+**Fluxo principal:**
 
-1\. O usuário acessa a lista de tarefas.
+1. O usuário acessa a lista de tarefas.
 
-2\. O usuário seleciona a opção de alteração de status.
+2. O usuário seleciona a opção de alteração de status.
 
-3\. O sistema identifica o status atual.
+3. O sistema identifica o status atual.
 
-4\. O sistema altera o status para o valor correspondente.
+4. O sistema altera o status para o valor correspondente.
 
-5\. O sistema salva a alteração no banco de dados.
+5. O sistema salva a alteração no banco de dados.
 
-6\. O sistema atualiza a apresentação da tarefa.
+6. O sistema atualiza a apresentação da tarefa.
 
 
 
-\*\*Fluxos alternativos:\*\*
+**Fluxos alternativos:**
 
-\- A1: A tarefa está pendente. O sistema permite marcá-la como concluída.
+- A1: A tarefa está pendente. O sistema permite marcá-la como concluída.
 
-\- A2: A tarefa está concluída. O sistema permite retorná-la ao status pendente.
+- A2: A tarefa está concluída. O sistema permite retorná-la ao status pendente.
 
 
 
-\*\*Fluxos de exceção:\*\*
+**Fluxos de exceção:**
 
-\- E1: A tarefa não é encontrada. O sistema informa que o registro não existe.
+- E1: A tarefa não é encontrada. O sistema informa que o registro não existe.
 
-\- E2: Ocorre uma falha na atualização. O sistema informa que não foi possível alterar o status.
+- E2: Ocorre uma falha na atualização. O sistema informa que não foi possível alterar o status.
 
 
 
-\*\*Pós-condições:\*\*
+**Pós-condições:**
 
-\- O novo status da tarefa permanece armazenado no banco de dados.
+- O novo status da tarefa permanece armazenado no banco de dados.
 
 
 
-\### UC06 — Filtrar tarefas
+### UC06 — Filtrar tarefas
 
 
 
-\*\*Objetivo:\*\* Permitir que o usuário encontre tarefas de acordo com seu status ou prioridade.
+**Objetivo:** Permitir que o usuário encontre tarefas de acordo com seu status ou prioridade.
 
 
 
-\*\*Ator principal:\*\* Usuário.
+**Ator principal:** Usuário.
 
 
 
-\*\*Pré-condições:\*\*
+**Pré-condições:**
 
-\- A aplicação deve estar disponível.
+- A aplicação deve estar disponível.
 
 
 
-\*\*Fluxo principal:\*\*
+**Fluxo principal:**
 
-1\. O usuário acessa a lista de tarefas.
+1. O usuário acessa a lista de tarefas.
 
-2\. O sistema apresenta as opções de filtragem.
+2. O sistema apresenta as opções de filtragem.
 
-3\. O usuário seleciona um filtro de status ou prioridade.
+3. O usuário seleciona um filtro de status ou prioridade.
 
-4\. O sistema processa a solicitação.
+4. O sistema processa a solicitação.
 
-5\. O sistema apresenta somente as tarefas correspondentes aos critérios selecionados.
+5. O sistema apresenta somente as tarefas correspondentes aos critérios selecionados.
 
 
 
-\*\*Fluxos alternativos:\*\*
+**Fluxos alternativos:**
 
-\- A1: O usuário seleciona apenas o filtro de status.
+- A1: O usuário seleciona apenas o filtro de status.
 
-\- A2: O usuário seleciona apenas o filtro de prioridade.
+- A2: O usuário seleciona apenas o filtro de prioridade.
 
-\- A3: O usuário combina filtros de status e prioridade.
+- A3: O usuário combina filtros de status e prioridade.
 
-\- A4: O usuário remove os filtros. O sistema apresenta novamente todas as tarefas.
+- A4: O usuário remove os filtros. O sistema apresenta novamente todas as tarefas.
 
 
 
-\*\*Fluxos de exceção:\*\*
+**Fluxos de exceção:**
 
-\- E1: Nenhuma tarefa corresponde aos filtros selecionados. O sistema apresenta uma mensagem informando que não foram encontradas tarefas.
+- E1: Nenhuma tarefa corresponde aos filtros selecionados. O sistema apresenta uma mensagem informando que não foram encontradas tarefas.
 
-\- E2: Ocorre uma falha na consulta. O sistema informa que não foi possível aplicar os filtros.
+- E2: Ocorre uma falha na consulta. O sistema informa que não foi possível aplicar os filtros.
 
 
 
-\*\*Pós-condições:\*\*
+**Pós-condições:**
 
-\- A lista é apresentada de acordo com os critérios selecionados, sem modificar os registros armazenados.
+- A lista é apresentada de acordo com os critérios selecionados, sem modificar os registros armazenados.
 
 
 
-\---
+---
 
 
 
-\## 5. Considerações finais
+## 5. Considerações finais
 
 
 
