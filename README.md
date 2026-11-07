@@ -11,7 +11,7 @@ Aplicação web para gerenciamento de tarefas pessoais, acadêmicas e profission
 ![SQLite](https://img.shields.io/badge/Database-SQLite-blue?logo=sqlite)
 ![Tests](https://img.shields.io/badge/tests-13%20passing-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-90.08%25-brightgreen)
-![License](https://img.shields.io/badge/license-not%20defined-lightgrey)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
@@ -73,6 +73,12 @@ O projeto foi desenvolvido individualmente como atividade prática de Engenharia
 | pytest-cov | Medição da cobertura dos testes |
 | Git | Controle de versão |
 | GitHub | Hospedagem e gerenciamento do projeto |
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
+Copyright (c) 2026 Susana Teixeira Mota.
 
 ## Estrutura do projeto
 
