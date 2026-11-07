@@ -1,16 +1,16 @@
-\# Requisitos do Sistema — Tarefaê
+# Requisitos do Sistema — Tarefaê
 
 
 
-\*\*Versão:\*\* 1.0.0  
+**Versão:** 1.0.0  
 
-\*\*Data:\*\* 06/11/2026  
+**Data:** 06/11/2026  
 
-\*\*Status:\*\* Em especificação
+**Status:** Em especificação
 
 
 
-\## 1. Introdução
+## 1. Introdução
 
 
 
@@ -22,7 +22,7 @@ O objetivo é estabelecer as funcionalidades e características necessárias par
 
 
 
-\## 2. Requisitos Funcionais (RF)
+## 2. Requisitos Funcionais (RF)
 
 
 
@@ -54,7 +54,7 @@ O objetivo é estabelecer as funcionalidades e características necessárias par
 
 
 
-\## 3. Requisitos Não Funcionais (RNF)
+## 3. Requisitos Não Funcionais (RNF)
 
 
 
@@ -82,7 +82,7 @@ O objetivo é estabelecer as funcionalidades e características necessárias par
 
 
 
-\## 4. Regras de Negócio (RN)
+## 4. Regras de Negócio (RN)
 
 
 
@@ -110,7 +110,7 @@ O objetivo é estabelecer as funcionalidades e características necessárias par
 
 
 
-\## 5. Rastreabilidade dos Requisitos
+## 5. Rastreabilidade dos Requisitos
 
 
 
@@ -146,25 +146,25 @@ Os requisitos serão relacionados aos casos de uso, às histórias de usuário e
 
 
 
-\## 6. Tecnologias relacionadas
+## 6. Tecnologias relacionadas
 
 
 
-\- Python 3: desenvolvimento da lógica da aplicação.
+- Python 3: desenvolvimento da lógica da aplicação.
 
-\- Flask: gerenciamento das rotas e requisições web.
+- Flask: gerenciamento das rotas e requisições web.
 
-\- SQLite: persistência dos dados.
+- SQLite: persistência dos dados.
 
-\- HTML5 e CSS3: estrutura e apresentação da interface.
+- HTML5 e CSS3: estrutura e apresentação da interface.
 
-\- JavaScript: interatividade.
+- JavaScript: interatividade.
 
-\- Pytest: testes automatizados.
+- Pytest: testes automatizados.
 
 
 
-\## 7. Considerações finais
+## 7. Considerações finais
 
 
 
