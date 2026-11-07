@@ -1,16 +1,52 @@
+import re
+import sqlite3
+
 from datetime import date, timedelta
 
-import sqlite3
+
+def obter_token_csrf(client, url="/"):
+    resposta = client.get(url)
+
+    assert resposta.status_code == 200
+
+    resultado = re.search(
+        rb'name="csrf_token"\s+value="([^"]+)"',
+        resposta.data
+    )
+
+    assert resultado is not None
+
+    return resultado.group(1).decode()
+
+
+def post_com_csrf(
+    client,
+    url,
+    data=None,
+    token_url="/",
+    follow_redirects=False
+):
+    dados = dict(data or {})
+    dados["csrf_token"] = obter_token_csrf(client, token_url)
+
+    return client.post(
+        url,
+        data=dados,
+        follow_redirects=follow_redirects
+    )
 
 
 def obter_id_tarefa(app, titulo):
     conn = sqlite3.connect(app.config["DATABASE_PATH"])
+
     try:
         resultado = conn.execute(
             "SELECT id FROM tarefas WHERE titulo = ?",
             (titulo,)
         ).fetchone()
+
         return resultado[0]
+
     finally:
         conn.close()
 
@@ -23,7 +59,8 @@ def test_pagina_inicial_carrega(client):
 
 
 def test_cadastrar_tarefa(client):
-    resposta = client.post(
+    resposta = post_com_csrf(
+        client,
         "/",
         data={
             "titulo": "Estudar Python",
@@ -40,7 +77,8 @@ def test_cadastrar_tarefa(client):
 
 
 def test_nao_cadastrar_tarefa_sem_titulo(client):
-    resposta = client.post(
+    resposta = post_com_csrf(
+        client,
         "/",
         data={
             "titulo": "   ",
@@ -56,7 +94,8 @@ def test_nao_cadastrar_tarefa_sem_titulo(client):
 
 
 def test_editar_tarefa(client, app):
-    client.post(
+    post_com_csrf(
+        client,
         "/",
         data={
             "titulo": "Tarefa antiga",
@@ -69,7 +108,8 @@ def test_editar_tarefa(client, app):
 
     tarefa_id = obter_id_tarefa(app, "Tarefa antiga")
 
-    resposta = client.post(
+    resposta = post_com_csrf(
+        client,
         f"/editar/{tarefa_id}",
         data={
             "titulo": "Tarefa atualizada",
@@ -78,6 +118,7 @@ def test_editar_tarefa(client, app):
             "status": "concluida",
             "data_vencimento": ""
         },
+        token_url=f"/editar/{tarefa_id}",
         follow_redirects=True
     )
 
@@ -87,7 +128,8 @@ def test_editar_tarefa(client, app):
 
 
 def test_excluir_tarefa(client, app):
-    client.post(
+    post_com_csrf(
+        client,
         "/",
         data={
             "titulo": "Tarefa para excluir",
@@ -100,7 +142,8 @@ def test_excluir_tarefa(client, app):
 
     tarefa_id = obter_id_tarefa(app, "Tarefa para excluir")
 
-    resposta = client.post(
+    resposta = post_com_csrf(
+        client,
         f"/excluir/{tarefa_id}",
         follow_redirects=True
     )
@@ -110,7 +153,8 @@ def test_excluir_tarefa(client, app):
 
 
 def test_filtrar_tarefas_por_status(client):
-    client.post(
+    post_com_csrf(
+        client,
         "/",
         data={
             "titulo": "Tarefa pendente",
@@ -119,7 +163,8 @@ def test_filtrar_tarefas_por_status(client):
         }
     )
 
-    client.post(
+    post_com_csrf(
+        client,
         "/",
         data={
             "titulo": "Tarefa concluida",
@@ -136,7 +181,8 @@ def test_filtrar_tarefas_por_status(client):
 
 
 def test_filtrar_tarefas_por_prioridade(client):
-    client.post(
+    post_com_csrf(
+        client,
         "/",
         data={
             "titulo": "Tarefa urgente",
@@ -145,7 +191,8 @@ def test_filtrar_tarefas_por_prioridade(client):
         }
     )
 
-    client.post(
+    post_com_csrf(
+        client,
         "/",
         data={
             "titulo": "Tarefa simples",
@@ -160,10 +207,12 @@ def test_filtrar_tarefas_por_prioridade(client):
     assert b"Tarefa urgente" in resposta.data
     assert b"Tarefa simples" not in resposta.data
 
+
 def test_identificar_tarefa_atrasada(client):
     ontem = (date.today() - timedelta(days=1)).isoformat()
 
-    client.post(
+    post_com_csrf(
+        client,
         "/",
         data={
             "titulo": "Tarefa atrasada",
@@ -183,7 +232,8 @@ def test_identificar_tarefa_atrasada(client):
 def test_tarefa_com_data_futura_nao_esta_atrasada(client):
     amanha = (date.today() + timedelta(days=1)).isoformat()
 
-    client.post(
+    post_com_csrf(
+        client,
         "/",
         data={
             "titulo": "Tarefa futura",
@@ -196,14 +246,14 @@ def test_tarefa_com_data_futura_nao_esta_atrasada(client):
     resposta = client.get("/")
 
     assert resposta.status_code == 200
-
     assert b'class="no-prazo"' in resposta.data
 
 
 def test_tarefa_concluida_nao_esta_atrasada(client):
     ontem = (date.today() - timedelta(days=1)).isoformat()
 
-    client.post(
+    post_com_csrf(
+        client,
         "/",
         data={
             "titulo": "Tarefa concluida atrasada",
@@ -218,3 +268,60 @@ def test_tarefa_concluida_nao_esta_atrasada(client):
     assert resposta.status_code == 200
     assert b"Tarefa concluida atrasada" in resposta.data
     assert b'class="no-prazo"' in resposta.data
+
+def test_bloquear_cadastro_sem_token_csrf(client):
+    resposta = client.post(
+        "/",
+        data={
+            "titulo": "Tentativa sem proteção",
+            "descricao": "Teste de segurança",
+            "prioridade": "alta",
+            "status": "pendente"
+        }
+    )
+
+    assert resposta.status_code == 400
+def test_bloquear_edicao_sem_token_csrf(client, app):
+    post_com_csrf(
+        client,
+        "/",
+        data={
+            "titulo": "Tarefa original",
+            "prioridade": "media",
+            "status": "pendente"
+        }
+    )
+
+    tarefa_id = obter_id_tarefa(app, "Tarefa original")
+
+    resposta = client.post(
+        f"/editar/{tarefa_id}",
+        data={
+            "titulo": "Tentativa de alteração",
+            "prioridade": "alta",
+            "status": "concluida"
+        }
+    )
+
+    assert resposta.status_code == 400
+def test_bloquear_exclusao_sem_token_csrf(client, app):
+    post_com_csrf(
+        client,
+        "/",
+        data={
+            "titulo": "Tarefa protegida",
+            "prioridade": "media",
+            "status": "pendente"
+        }
+    )
+
+    tarefa_id = obter_id_tarefa(app, "Tarefa protegida")
+
+    resposta = client.post(
+        f"/excluir/{tarefa_id}"
+    )
+
+    assert resposta.status_code == 400
+
+    # Confirma que a tarefa continua no banco de dados.
+    assert obter_id_tarefa(app, "Tarefa protegida") == tarefa_id

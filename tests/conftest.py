@@ -9,6 +9,7 @@ def app(tmp_path):
 
     app = create_app({
         "TESTING": True,
+	"SECRET_KEY": "chave-de-teste-nao-utilizar-em-producao",
         "DATABASE_PATH": database_path
     })
 

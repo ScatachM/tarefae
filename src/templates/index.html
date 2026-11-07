@@ -30,6 +30,7 @@
             {% endif %}
 
             <form method="POST" action="{{ url_for('tarefas.index') }}">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
                 <label for="titulo">Título</label>
                 <input
@@ -175,12 +176,14 @@
                         </a>
 
                         <form
-                            method="POST"
-                            action="{{ url_for('tarefas.excluir', id=tarefa['id']) }}"
-                            onsubmit="return confirm('Tem certeza de que deseja excluir esta tarefa?');"
-                        >
-                            <button type="submit">Excluir</button>
-                        </form>
+    method="POST"
+    action="{{ url_for('tarefas.excluir', id=tarefa['id']) }}"
+    onsubmit="return confirm('Tem certeza de que deseja excluir esta tarefa?');"
+>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <button type="submit">Excluir</button>
+</form>
 
                     </article>
 
